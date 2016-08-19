@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Paradise Hotels</title>
+</head>
+<style>
+    body{
+        background:url("images/receptionist.jpg")no-repeat center center fixed ;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+        color: whitesmoke;
+
+    }
+    .container{
+        margin-left: 15px;
+    }
+
+    .boxes{
+        width: 260px;
+        font-size: x-large;
+        font-weight: bold;
+        border: 1px solid white;
+
+    }
+
+    .someMargin {
+        margin-right:50px;
+    }
+
+    .images{
+        width: 255px;
+        height: 200px;
+        margin-bottom: -8px;
+    }
+
+    .containerHotels{
+        position: fixed;
+        bottom: 5px;
+        width: 100%;
+
+    }
+    .borderBox{
+        -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+        -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+        box-sizing: border-box;
+    }
+
+    .imageClickTag{
+        background-color: aqua;
+        opacity: 0.7;
+        color: white;
+        height: 2px;
+        text-align: center;
+
+    }
+    .floatLeft{
+        float: left;
+    }
+
+    .clearFloat{
+    clear: both;
+    }
+
+    .testBorder{
+        border: 1px solid white;
+    }
+
+    #box1 ,#box2,#box3{
+       font-size: medium;!important;
+        color: white;!important;
+        background-color: rgb(50,30,21);
+        opacity: 0.9;
+        border:3px solid whitesmoke;
+    }
+
+
+</style>
+<body>
+
+<div class="container">
+<h1>Welcome to Paradise Hotels</h1>
+  <div class="containerHotels"><!--Container for the hotels boxes-->
+
+    <!--Athens box-->
+    <div class="boxes someMargin floatLeft testBorder ">
+    <div>Athens :  <button id="athensButton">Click for Info</button></div>
+        <div id="box1"><img class="images " src="images/athens.jpg"></div>
+    </div>
+
+      <!--London box-->
+    <div class="boxes someMargin floatLeft">
+        <div>London: <button id="londonButton">Click for Info</button></div>
+        <div id="box2"><img class="images " src="images/london.jpg"></div>
+    </div>
+
+      <!--Paris box-->
+    <div class="boxes someMargin floatLeft  ">
+        <div>Paris : <button id="parisButton">Click for Info</button></div>
+        <div id="box3"><img class="images " src="images/paris.jpg"></div>
+    </div>
+
+    <div class="imageClickTag clearFloat"></div>
+
+  </div><!--ending hotels boxes-->
+</div><!--Full container-->
+
+<script>
+
+    function fetch(info,whereToShow){
+        var req;
+        //Browser choose
+        if(window.XMLHttpRequest){
+            req = new XMLHttpRequest();
+
+        }
+        else {
+            req = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+
+        //Checking server response
+        req.onreadystatechange= function () {
+            if (req.status==200&& req.readyState==4){
+                document.getElementById(whereToShow).innerHTML = req.responseText;
+            }
+        }
+        //Opening and sending the AJAX request to server
+        req.open("GET",info,true);
+        req.send();
+    }
+
+
+    function athens(){
+        fetch("php/info.php?select=athens","box1");
+
+    }
+
+    function london(){
+        fetch("php/info.php?select=london","box2");
+    }
+
+    function paris(){
+        fetch("php/info.php?select=paris","box3");
+    }
+
+    document.getElementById("athensButton").onclick = function () {
+        athens();
+    }
+
+    document.getElementById("londonButton").onclick = function () {
+        london();
+    }
+    document.getElementById("parisButton").onclick = function () {
+        paris();
+    }
+
+
+</script>
+
+</body>
+</html>
